@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinate Hub Media | Premium Digital Solutions</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://unpkg.com/gsap@3.9.0/dist/gsap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="dark:bg-gray-900 dark:text-gray-100 font-[Poppins] overflow-x-hidden">
+    <!-- WebGL Background -->
+    <div id="webgl-background" class="fixed top-0 left-0 w-full h-full -z-10"></div>
+
+    <!-- Loading Screen -->
+    <div id="loader" class="fixed inset-0 bg-gray-900 flex items-center justify-center transition-opacity">
+        <div class="webgl-loader animate-spin"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full py-6 px-8 flex justify-between items-center backdrop-blur-sm bg-white/5 dark:bg-black/5 z-50">
+        <div class="text-2xl font-bold">IHM</div>
+        <div class="hidden md:flex space-x-8 items-center">
+            <a href="#services" class="hover:text-purple-400 transition">Services</a>
+            <a href="#work" class="hover:text-purple-400 transition">Work</a>
+            <a href="#about" class="hover:text-purple-400 transition">About</a>
+            <a href="#contact" class="px-6 py-2 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full hover:scale-105 transition">Contact</a>
+        </div>
+        <button id="menu-toggle" class="md:hidden">☰</button>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed top-0 right-0 h-full w-64 bg-gray-800 shadow-lg transform translate-x-full transition-transform p-6">
+        <div class="flex flex-col space-y-6">
+            <a href="#services" class="text-xl hover:text-purple-400">Services</a>
+            <a href="#work" class="text-xl hover:text-purple-400">Work</a>
+            <a href="#about" class="text-xl hover:text-purple-400">About</a>
+            <a href="#contact" class="text-xl hover:text-purple-400">Contact</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center px-8 pt-20 relative">
+        <div class="max-w-6xl mx-auto text-center  mt-2">
+            <h1 class="text-5xl md:text-8xl font-bold mb-6 mt-8 leading-tight ">
+                <span class="text-gradient">Reinvent</span> Your Digital<br>Identity
+            </h1>
+            <div id="hero-3d" class="w-full h-96 my-12">
+
+            </div>
+            <p class="text-lg md:text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
+                We craft digital experiences that drive growth and innovation for forward-thinking brands.
+            </p>
+        </div>
+    </section>
+
+    <!-- Client Logos -->
+    <div class="py-16 bg-gray-800/20 overflow-hidden">
+        <div class="flex items-center space-x-24 animate-marquee" >
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMzAiIGZpbGw9IiNGRjAwMDAiPjx0ZXh0IHg9IjAiIHk9IjIwIiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iNzAwIj5ORVRGTElYPC90ZXh0Pjwvc3ZnPg==" class="h-12 opacity-50 hover:opacity-100 transition">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMzAiIGZpbGw9IiMwMEE4RTEiPjx0ZXh0IHg9IjAiIHk9IjIwIiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iNzAwIj5TSE9QSUZZPC90ZXh0Pjwvc3ZnPg==" class="h-12 opacity-50 hover:opacity-100 transition">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMzAiIGZpbGw9IiNGRjk5MDAiPjx0ZXh0IHg9IjAiIHk9IjIwIiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iNzAwIj5BTUFaT048L3RleHQ+PC9zdmc+" class="h-12 opacity-50 hover:opacity-100 transition">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMzAiIGZpbGw9IiMxREExRjIiPjx0ZXh0IHg9IjAiIHk9IjIwIiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iNzAwIj5UV0lUVEVSPC90ZXh0Pjwvc3ZnPg==" class="h-12 opacity-50 hover:opacity-100 transition">
+            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjAgMzAiIGZpbGw9IiM0MjY3QjIiPjx0ZXh0IHg9IjAiIHk9IjIwIiBmb250LXNpemU9IjI0IiBmb250LXdlaWdodD0iNzAwIj5NRVRBPC90ZXh0Pjwvc3ZnPg==" class="h-12 opacity-50 hover:opacity-100 transition">
+        </div>
+    </div>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 px-8">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold mb-16 text-center">Our Expertise</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="p-8 rounded-2xl bg-gradient-to-br from-gray-800 to-gray-900 hover:transform hover:-translate-y-2 transition">
+                    <h3 class="text-2xl font-bold mb-4">Social Media Strategy</h3>
+                    <p class="text-gray-400">Data-driven campaigns that increase engagement & conversions</p>
+                </div>
+                <div class="p-8 rounded-2xl bg-gradient-to-br from-gray-800 to-gray-900 hover:transform hover:-translate-y-2 transition">
+                    <h3 class="text-2xl font-bold mb-4">Web Development</h3>
+                    <p class="text-gray-400">High-performance websites with cutting-edge technology</p>
+                </div>
+                <div class="p-8 rounded-2xl bg-gradient-to-br from-gray-800 to-gray-900 hover:transform hover:-translate-y-2 transition">
+                    <h3 class="text-2xl font-bold mb-4">Brand Strategy</h3>
+                    <p class="text-gray-400">Complete brand identity development & positioning</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 px-8 bg-gray-800/30">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="space-y-6">
+                    <h2 class="text-4xl font-bold">Who We Are</h2>
+                    <p class="text-xl text-gray-400">
+                        At Infinite Media Hub, we're a collective of digital innovators with 8+ years of transforming brands through cutting-edge solutions. Our team of strategists, developers, and creatives have delivered 250+ successful projects worldwide.
+                    </p>
+                    <div class="grid grid-cols-2 gap-8">
+                        <div class="stat">
+                            <div class="text-3xl font-bold">150+</div>
+                            <div class="text-gray-400">Global Clients</div>
+                        </div>
+                        <div class="stat">
+                            <div class="text-3xl font-bold">98%</div>
+                            <div class="text-gray-400">Retention Rate</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative team-3d-container h-96 bg-gray-700/30 rounded-xl"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="work" class="py-20 px-8">
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl font-bold mb-16 text-center">Our Work</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="portfolio-item relative group overflow-hidden rounded-xl h-96 bg-gray-800 hover:transform hover:scale-105 transition">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                    <div class="absolute bottom-0 left-0 p-6 text-white">
+                        <h4 class="text-xl font-bold mb-2">E-commerce Revolution</h4>
+                        <p class="text-gray-300">300% revenue growth for retail brand</p>
+                    </div>
+                </div>
+                <!-- Add more portfolio items -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 px-8 bg-gray-900">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-6">Start Your Journey</h2>
+            <form action="https://formspree.io/f/your-form-id" method="POST" class="max-w-xl mx-auto space-y-6">
+                <input type="email" name="email" placeholder="Your Email" required 
+                       class="w-full p-4 bg-gray-800 rounded-lg focus:ring-2 focus:ring-purple-600">
+                <textarea name="message" placeholder="Your Vision" required rows="4"
+                          class="w-full p-4 bg-gray-800 rounded-lg focus:ring-2 focus:ring-purple-600"></textarea>
+                <button type="submit" 
+                        class="px-8 py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-full hover:scale-105 transition">
+                    Launch Project
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <script>
+        // Three.js Initialization
+        const initWebGL = () => {
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            document.getElementById('webgl-background').appendChild(renderer.domElement);
+
+            // Particle system
+            const particles = new THREE.BufferGeometry();
+            const particleCount = 5000;
+            const posArray = new Float32Array(particleCount * 3);
+
+            for(let i = 0; i < particleCount*3; i++) {
+                posArray[i] = (Math.random() - 0.5) * 10;
+            }
+
+            particles.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+            const material = new THREE.PointsMaterial({
+                size: 0.005,
+                color: new THREE.Color('#7C3AED'),
+                transparent: true
+            });
+
+            const particleMesh = new THREE.Points(particles, material);
+            scene.add(particleMesh);
+            camera.position.z = 5;
+
+            function animate() {
+                requestAnimationFrame(animate);
+                particleMesh.rotation.y += 0.001;
+                renderer.render(scene, camera);
+            }
+            animate();
+        };
+
+        // Initialize WebGL
+        window.addEventListener('load', () => {
+            initWebGL();
+            document.getElementById('loader').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('loader').style.display = 'none';
+            }, 500);
+        });
+
+        // Mobile Menu
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('translate-x-full');
+        });
+
+        // Close menu on outside click
+        document.addEventListener('click', (e) => {
+            if (!menuToggle.contains(e.target) && !mobileMenu.contains(e.target)) {
+                mobileMenu.classList.add('translate-x-full');
+            }
+        });
+
+        // Intersection Observer for animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.classList.add('animate-fadeInUp');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.service-card, .portfolio-item').forEach(el => observer.observe(el));
+
+
+
+
+
+        // WEBGL LOGO
+    </script>
+
+    <style>
+        .text-gradient {
+            background: linear-gradient(45deg, #7C3AED, #DB2777);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .animate-marquee {
+            animation: marquee 20s linear infinite;
+        }
+
+        .animate-fadeInUp {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .webgl-loader {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #7C3AED;
+            border-radius: 50%;
+            border-top-color: transparent;
+        }
+
+        ::-webkit-scrollbar {
+            width: 2px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, #7C3AED, #DB2777);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(45deg, #DB2777, #7C3AED);
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1F2937; /* Suitable for dark mode */
+        }
+    </style>
+</body>
+</html>
